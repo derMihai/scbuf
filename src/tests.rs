@@ -152,7 +152,24 @@ fn cap_not_pow2() {
 }
 
 #[test]
-#[should_panic]
 fn item_zero_sized() {
-    let (_, _) = new_scbuf::<()>(2);
+    struct Hollow {}
+
+    let (mut w, mut r) = new_scbuf::<Hollow>(256);
+
+    let reader_thread = thread::spawn(move || {
+        for _ in 0..300 {
+            while let Some(_) = w.push(Hollow {}) {}
+        }
+    });
+
+    for _ in 0..300 {
+        while let None = r.pop() {}
+    }
+
+    reader_thread.join().unwrap();
+
+    if let Some(_) = r.pop() {
+        panic!("buffer not drained!");
+    }
 }

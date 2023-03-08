@@ -1,12 +1,10 @@
 [package]
 name = "scbuf"
-version = "0.1.0"
+version = "0.1.1"
 license = "MIT"
 description = "scbuf (sync circular buffer) is a Send and Sync, lock-free circular buffer implementation."
 repository = "https://github.com/derMihai/scbuf"
 readme = "README.md"
 authors = ["Mihai Renea"]
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
